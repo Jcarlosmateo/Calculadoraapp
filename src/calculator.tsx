@@ -1,8 +1,9 @@
-import { useState, useSyncExternalStore } from 'react';
+import { useState } from "react";
 import Button from './button';
+import './Calculator.css';
 
 function Calculator(){
-    const [displayValue, setDisplayValue]=useState('0');
+    const [displayValue, setDisplayValue]=useState<string>('0');
     const [operator, setOperator]=useState<string | null > (null);
     const [firstOperand, setFirstOperand]=useState<number | null>(null);
 
@@ -47,15 +48,39 @@ function Calculator(){
         }
     }
 
+    function handleClearClick(){
+        setDisplayValue('0');
+        setFirstOperand(null);
+        setOperator(null);
+    }
     return(
-        <div>
-            <div>{displayValue}</div>
-            {/*Aqui iran los botones de la calculadora */}
-            <Button value="1" onClick={()=> handleNumberClick('1')}/>{''}
-            <Button value="+" onClick={()=> handleOperationClick('+')}/>{''}
-            <Button value="1" onClick={() => handleNumberClick('1')}/>{''}   
-            <Button value="+" onClick={() => handleOperationClick('+')}/>{''}  
-
+        <div className="calculator">
+            {''}
+            <div className="display">{displayValue}</div>{''}
+            <div>
+            <Button value="7" onclick={()=> handleNumberClick('7')}/>{''}
+            <Button value="4" onclick={()=> handleNumberClick('4')}/>{''}
+            <Button value="1" onclick={()=> handleNumberClick('1')}/>{''}
+            <Button value="0" onclick={()=> handleNumberClick('0')}/>{''}
+            </div>
+            <div>
+            <Button value="8" onclick={()=> handleNumberClick('8')}/>{''}
+            <Button value="5" onclick={()=> handleNumberClick('5')}/>{''}
+            <Button value="2" onclick={()=> handleNumberClick('2')}/>{''}
+            <Button value="=" onclick={calculate}/>
+            </div>
+            <div>
+            <Button value="9" onclick={()=> handleNumberClick('9')}/>{''}
+            <Button value="6" onclick={()=> handleNumberClick('6')}/>{''}
+            <Button value="3" onclick={()=> handleNumberClick('3')}/>{''}
+            <Button value="-" onclick={()=> handleNumberClick('-')}/>{''}
+            </div>
+            <div>
+            <Button value="C" onclick={handleClearClick} />
+            <Button value="/" onclick={()=> handleNumberClick('/')}/>{''}
+            <Button value="*" onclick={()=> handleNumberClick('*')}/>{''}
+            <Button value="+" onclick={()=> handleNumberClick('+')}/>{''}
+            </div>
         </div>
     );
 }
